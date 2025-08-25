@@ -15,6 +15,7 @@ app.use(express.json());
 const allowedOrigins = new Set<string>([
   FRONTEND_URI,
   "http://localhost:5173",
+  "https://url-shortner-alpha-topaz.vercel.app",
 ]);
 
 app.use(cors({

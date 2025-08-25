@@ -11,22 +11,9 @@ const app = express();
 
 app.use(express.json());
 
-// Allow multiple exact origins (no wildcards with credentials)
-const allowedOrigins = new Set<string>([
-  FRONTEND_URI,
-  "http://localhost:5173",
-  "https://url-shortner-alpha-topaz.vercel.app",
-]);
 
-app.use(cors({
-  origin(origin, callback) {
-    if (!origin || allowedOrigins.has(origin)) return callback(null, true);
-    return callback(new Error(`Not allowed by CORS: ${origin}`));
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+
+app.use(cors);
 
 mongoose
   .connect(MONGO_URI)

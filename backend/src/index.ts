@@ -11,7 +11,21 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors({ origin: [FRONTEND_URI], credentials: true }));
+// Allow multiple exact origins (no wildcards with credentials)
+const allowedOrigins = new Set<string>([
+  FRONTEND_URI,
+  "http://localhost:5173",
+]);
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) return callback(null, true);
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 mongoose
   .connect(MONGO_URI)

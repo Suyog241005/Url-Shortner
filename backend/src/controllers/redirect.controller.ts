@@ -8,6 +8,8 @@ export const redirect = async (req: Request, res: Response) => {
     if (!url) {
       return res.status(404).json({ error: "URL not found" });
     }
+    url.clicks++;
+    await url.save();
     res.redirect(url.longUrl);
 
   } catch (error) {

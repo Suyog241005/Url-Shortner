@@ -8,6 +8,7 @@ interface Url {
   _id: string;
   longUrl: string;
   shortUrl: string;
+  clicks?: number;
 }
 
 const Home = () => {
@@ -72,16 +73,17 @@ const Home = () => {
 
         {Array.isArray(urls) && urls.length > 0 && (
           <div className="overflow-hidden rounded-xl border bg-card">
-            <div className="grid grid-cols-12 items-center border-b bg-muted/50 px-4 py-3 text-sm font-medium text-muted-foreground">
+            <div className="grid grid-cols-16 items-center border-b bg-muted/50 px-4 py-3 text-sm font-medium text-muted-foreground">
               <div className="col-span-5">Original URL</div>
               <div className="col-span-4">Short URL</div>
-              <div className="col-span-3 text-right">Actions</div>
+              <div className="col-span-3 text-center">Clicks</div>
+              <div className="col-span-4 text-center">Actions</div>
             </div>
             <ul className="divide-y">
               {urls.map((u) => {
                 const short = `${import.meta.env.VITE_BACKEND_URI}/${u.shortUrl}`;
                 return (
-                  <li key={u._id} className="grid grid-cols-12 items-center gap-3 px-4 py-4">
+                  <li key={u._id} className="grid grid-cols-16 items-center gap-3 px-4 py-4">
                     <div className="col-span-5 min-w-0 pr-4">
                       <a
                         href={u.longUrl}
@@ -104,7 +106,10 @@ const Home = () => {
                         {short}
                       </a>
                     </div>
-                    <div className="col-span-3 flex items-center justify-end gap-2 md:flex-nowrap flex-wrap flex-shrink-0">
+                    <div className="col-span-3 text-center text-lg text-muted-foreground">
+                      {(u.clicks ?? 0)}
+                    </div>
+                    <div className="col-span-4 flex items-center justify-end gap-2 md:flex-nowrap flex-wrap flex-shrink-0">
                       <Button
                         variant="secondary"
                         size="sm"

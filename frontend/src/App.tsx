@@ -24,6 +24,9 @@ const App = () => {
         console.log("No email found");
       }
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }, [isSignedIn, user]);
 
   return (

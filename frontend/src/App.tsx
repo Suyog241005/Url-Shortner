@@ -26,9 +26,7 @@ const App = () => {
     }
   }, [isSignedIn, user]);
 
-  setTimeout(() => {
-    window.location.reload();
-  }, 1000);
+  setTimeout(() => {  }, 1000);
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <header className="sticky top-0 z-20 w-full border-b bg-background/80 backdrop-blur">

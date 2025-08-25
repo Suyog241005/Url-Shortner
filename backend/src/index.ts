@@ -13,7 +13,10 @@ app.use(express.json());
 
 app.use(cors({ origin: [FRONTEND_URI], credentials: true }));
 
-mongoose.connect(MONGO_URI).then(() => console.log("Connected to MongoDB")).catch((err) => console.log("Error connecting to MongoDB", err));
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err: unknown) => console.log("Error connecting to MongoDB", err));
 
 app.use("/api", rootRouter);
 app.use("/", redirectRouter);
